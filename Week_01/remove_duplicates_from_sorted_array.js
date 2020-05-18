@@ -56,7 +56,7 @@ var removeDuplicates4 = function (nums) {
   return len;
 };
 
-// 注意
+// 测试
 const testArr = [1, 1, 2];
 console.log(removeDuplicates(testArr));
 console.log(removeDuplicates2(testArr));
