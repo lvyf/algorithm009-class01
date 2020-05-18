@@ -16,6 +16,8 @@ var sorted = function (nums) {
   const count = index + 1;
   nums.splice(0, count);
   nums.splice(nums.length, 0, ...new Array(count).fill(0));
+
+  return nums;
 };
 
 var move = function (nums) {
@@ -29,6 +31,19 @@ var move = function (nums) {
       i++;
     }
   }
+
+  return nums;
+};
+
+var move2 = function (nums) {
+  nums.forEach((item, index) => {
+    if (item === 0) {
+      nums.splice(index, 1);
+      nums.push(0);
+    }
+  });
+
+  return nums;
 };
 
 var moveZeroes = function (nums) {
@@ -45,9 +60,12 @@ var moveZeroes = function (nums) {
       j++;
     }
   }
+
+  return nums;
 };
 
 // 测试
 console.log(move([0, 1, 0, 3, 12]));
+console.log(move2([0, 1, 0, 3, 12]));
 console.log(sorted([0, 1, 0, 3, 12]));
 console.log(moveZeroes([0, 1, 0, 3, 12]));
