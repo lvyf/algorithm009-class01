@@ -50,10 +50,22 @@ var merge2 = function (nums1, m, nums2, n) {
   return nums1;
 };
 
-// 输入:
-// nums1 = [1,2,3,0,0,0], m = 3
-// nums2 = [2,5,6],       n = 3
+// 另一种从后向前遍历
+var merge3 = function (nums1, m, nums2, n) {
+  let p = m + n;
 
-// 输出: [1,2,2,3,5,6]
+  while (n > 0) {
+    if (m <= 0) {
+      nums1[--p] = nums2[--n];
+      continue;
+    }
+    nums1[--p] = nums1[m - 1] >= nums2[n - 1] ? nums1[--m] : nums2[--n];
+  }
+
+  return nums1;
+};
+
+// test 输出: [1,2,2,3,5,6]
 console.log(merge([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
 console.log(merge2([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
+console.log(merge3([1, 2, 3, 0, 0, 0], 3, [2, 5, 6], 3));
