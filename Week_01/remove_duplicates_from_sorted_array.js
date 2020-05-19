@@ -47,7 +47,7 @@ var removeDuplicates3 = function (nums) {
   return n - count;
 };
 
-// 和上面一样，这修改不做删除的双指针法
+// 和上面一样，只修改不做删除的双指针法
 var removeDuplicates4 = function (nums) {
   let len = 1;
   for (let i = 1; i < nums.length; i++) {
