@@ -29,6 +29,36 @@ var largestRectangleArea2 = function (heights) {
   }
 };
 
+// 使用排序后的栈进行优化
+var largestRectangleArea3 = function (heights) {
+  let maxArea = 0;
+  const stack = [-1];
+  for (let i = 0; i < heights.length; i++) {
+    // 把前面比当前元素小的的元素弹出栈，同时更新最大面积
+    while (
+      heights[heights.length - 1] !== -1 &&
+      heights[stack[stack.length - 1]] >= heights[i]
+    ) {
+      maxArea = Math.max(
+        maxArea,
+        heights[stack.pop()] * (i - stack[stack.length - 1] - 1)
+      );
+    }
+    stack.push(i);
+  }
+
+  // 清空栈
+  while (stack[stack.length - 1] !== -1) {
+    maxArea = Math.max(
+      maxArea,
+      heights[stack.pop()] * (heights.length - stack[stack.length - 1] - 1)
+    );
+  }
+
+  return maxArea;
+};
+
 // test
 console.log(largestRectangleArea([2, 1, 5, 6, 2, 3]));
 console.log(largestRectangleArea2([2, 1, 5, 6, 2, 3]));
+console.log(largestRectangleArea3([2, 1, 5, 6, 2, 3]));
