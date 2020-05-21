@@ -12,12 +12,44 @@ var isValid = function (s) {
     matchs.forEach((item) => (s = s.replace(item, "")));
   } while (s.length !== lastLength);
 
-  return s === "" ? true : false;
+  return s === "";
 };
+
+// 利用栈和哈希匹配，栈用于求解有 -> 最新相关性 的问题
+var isValid2 = function (s) {
+  const quoteMap = { ")": "(", "]": "[", "}": "{" };
+  const stack = [];
+
+  for (char of s) {
+    if (quoteMap[char]) {
+      if (stack.pop() !== quoteMap[char]) {
+        return false;
+      }
+    } else {
+      stack.push(char);
+    }
+  }
+
+  return stack.length === 0;
+};
+
+// 更简短的写法，把插入操作提前
+var isValid3 = function (s) {
+  const dict = { ")": "(", "]": "[", "}": "{" };
+  const stack = [];
+
+  for (c of s) {
+    if (!dict[c]) stack.unshift(c);
+    else if (!stack.length || (stack.length && stack.shift() !== dict[c]))
+      return false;
+  }
 
 //test
 console.log(isValid("{[]}"));
 console.log(isValid("([)]"));
+
+console.log(isValid2("{[]}"));
+console.log(isValid2("([)]"));
 
 // 给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
 
