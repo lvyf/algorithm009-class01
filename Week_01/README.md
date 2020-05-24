@@ -60,7 +60,60 @@ var isValid = function(s) {
 
 #### leetcode 1 两数之和
 
+使用 hash 方法进行配对，将 O(n^2) 的复杂度下降到 O(n)。存储时，使用 target - curr 作为 key。当前 curr 的下标作为 value。因为使用到 hash，需要额外开辟 O(n) 的存储空间
+
+```
+var twoSum = function(nums, target) {
+  const dict = {}
+  for (let i = 0; i < nums.length; i++) {
+    if (dict[nums[i]] !== undefined) {
+      return [i, dict[nums[i]]]
+    }
+    dict[target - nums[i]] = i
+  }
+};
+```
+
 #### leetcode 15 三数之和
+
+三数之和的难点在于跳过重复解，最优解法是排序 + 双指针夹逼法。这样可以将遍历复杂度从 O(n^3) 下降到 O(n^2)。并且由于数组已经排序，可以快速跳过重复解。
+
+```
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function(nums) {
+  if (nums.length < 2) {
+    return []
+  }
+  nums.sort((a, b) => a - b)
+  const result = []
+
+  for (let k = 0; k < nums.length - 2; k++) {
+    if (nums[k] > 0) break
+    if (k > 0 && nums[k] === nums[k - 1]) continue
+
+    let i = k + 1
+    let j = nums.length - 1
+    while (i < j) {
+      const sum = nums[k] + nums[i] + nums[j]
+      if (sum < 0)
+        while (i < j && nums[++i] === nums[i - 1]) continue
+      else if (sum > 0)
+        while (i < j && nums[--j] === nums[j + 1]) continue
+      else {
+        result.push([nums[k], nums[i], nums[j]])
+
+        while (i < j && nums[++i] === nums[i - 1]) continue
+        while (i < j && nums[--j] === nums[j + 1]) continue
+      }
+    }
+  }
+
+  return result
+};
+```
 
 #### leetcode 18 四数之和
 
