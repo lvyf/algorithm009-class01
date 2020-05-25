@@ -42,7 +42,7 @@ var isValid = function(s) {
 };
 ```
 
-> 哈希匹配，遍历复杂度仍然是O(n)，但将字符串的处理过程简化到 O(1)。需要额外的数组作为辅助空间，时间复杂度 O(n)
+> 哈希匹配，遍历复杂度仍然是 O(n)，但将字符串的处理过程简化到 O(1)。需要额外的数组作为辅助空间，时间复杂度 O(n)
 
 > 关键点：利用栈，如果是左括号，压入栈中。如果是右括号，就从栈中弹出元素进行匹配。最后判断栈是否为空
 
@@ -66,11 +66,10 @@ var isValid = function(s) {
 var twoSum = function(nums, target) {
   const dict = {}
   for (let i = 0; i < nums.length; i++) {
-    if (dict[nums[i]] !== undefined) {
-      return [i, dict[nums[i]]]
-    }
+    if (dict[nums[i]] !== undefined) return [dict[nums[i]], i]
     dict[target - nums[i]] = i
   }
+  return []
 };
 ```
 

@@ -20,6 +20,13 @@ function ListNode(val) {
   this.next = null;
 }
 
+function printLink(l1) {
+  while (l1.next) {
+    console.log(l1.val);
+    l1 = l1.next;
+  }
+}
+
 function createLinkedList(nums) {
   let list = new ListNode(null);
   const temp = list;
