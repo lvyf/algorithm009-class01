@@ -29,3 +29,45 @@ var reverseList = function(head) {
   return prev
 };
 ```
+
+#### leetcode 24 两两交换链表中的节点
+
+> 这道题的关键在于，需要新开两个额外的节点。交换后每次走两步
+
+> prev first second next
+
+> 1 -> 2 -> 3 -> 4 -> null
+
+> 进行如下指针变换:
+
+> prev -> second -> first -> next
+
+> 2 -> 1 -> 3 -> 4 -> null
+
+> 移动指针:
+
+>         prev   first  second  next
+
+> 2 -> 1 -> 3 -> 4 -> null
+
+> 重复上述操作。移动指针进行步进，每次走两格
+
+```
+var swapPairs = function(head) {
+  let prev = new ListNode(-1)
+  prev.next = head
+  const link = prev
+
+  while (prev.next && prev.next.next) {
+    const first = prev.next
+    const second = prev.next.next
+
+    first.next = second.next
+    second.next = first
+    prev.next = second
+    prev = prev.next.next
+  }
+
+  return link.next
+};
+```
