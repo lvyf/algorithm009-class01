@@ -20,10 +20,10 @@ var reverseList = function(head) {
   let prev = head
 
   while (head.next !== null) {
-    const temp = prev
-    prev = head.next
-    head.next = head.next.next
-    prev.next = temp
+    const temp = prev // 持有原链表节点
+    prev = head.next // 1 -> 2
+    head.next = head.next.next // 断链 + 步进
+    prev.next = temp // 1 <- 2
   }
 
   return prev
